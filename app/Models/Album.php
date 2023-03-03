@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * @method static create(array $array)
+ * @method static Album create(array $array)
+ * @method static Album findOrFail(mixed $album_id)
  */
 class Album extends Model
 {

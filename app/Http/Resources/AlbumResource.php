@@ -7,6 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 
 /**
+ * @property mixed $id
  * @property mixed $title
  * @property mixed $description
  * @property mixed $release_date
@@ -22,6 +23,7 @@ class AlbumResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
             'release_date' => $this->release_date,
