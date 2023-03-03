@@ -35,8 +35,17 @@
                 </div>
 
 
-                <div class="col-span-12 rounded-lg border border-gray-400 bg-gray-200 p-16 sm:col-span-4">
+                <div class="col-span-12 rounded-lg border border-gray-400 bg-gray-700 p-16 sm:col-span-4">
                     <!-- Genres -->
+                    <h2 class="text-lg font-bold text-white">All Genres</h2>
+
+                    <div class="genres flex flex-col">
+                        <Link
+                            v-for="(genre, index) in genres"
+                            :key="index"
+                            class="text-gray-300 ml-3 my-1 hover:bg-gray-900 px-2"
+                        >{{ genre.name }}</Link>
+                    </div>
                 </div>
             </div>
         </div>
@@ -51,7 +60,7 @@ import { Head, Link } from '@inertiajs/vue3';
 
 
 export default {
-    props: ['albums'],
+    props: ['albums', 'genres'],
     components: {AuthenticatedLayout, Head, Link}
 }
 
