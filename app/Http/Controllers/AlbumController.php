@@ -5,31 +5,52 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAlbumRequest;
 use App\Http\Requests\UpdateAlbumRequest;
 use App\Models\Album;
+use App\Services\ImageProcessingService;
+use Illuminate\Http\RedirectResponse;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class AlbumController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+    private ImageProcessingService $imageProcessingService;
 
     /**
-     * Show the form for creating a new resource.
+     * @param ImageProcessingService $imageProcessingService
      */
-    public function create()
+    public function __construct(ImageProcessingService $imageProcessingService)
     {
-        //
+        $this->imageProcessingService = $imageProcessingService;
+    }
+
+
+    /**
+     * Show the form for creating a new album.
+     */
+    public function create(): Response
+    {
+        return Inertia::render('CreateAlbum');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreAlbumRequest $request)
+    public function store(StoreAlbumRequest $request): RedirectResponse
     {
-        //
+        $validatedRequest = $request->validated();
+
+        $coverImagePath = $this->imageProcessingService->saveFromHttpRequest(
+            $request->file('cover_image'),
+            'cover'
+        );
+
+        Album::create([
+            'title' => $validatedRequest['title'],
+            'description' => $validatedRequest['description'],
+            'release_date' => $validatedRequest['release_date'],
+            'cover_image' => $coverImagePath
+        ]);
+
+        return redirect()->route('dashboard');
     }
 
     /**
