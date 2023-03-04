@@ -15,7 +15,7 @@ class DashboardController extends Controller
     {
         $albums = AlbumResource::collection(Album::all());
         $genres = Genre::all();
-        $songs  = Song::with('album')->get();
+        $songs  = Song::with('album')->orderBy('id', 'desc')->get();
 
         return Inertia::render('Dashboard')
             ->with([

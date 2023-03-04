@@ -14,13 +14,6 @@ use Inertia\Response;
 
 class SongController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Show the form for creating a new song.
@@ -55,34 +48,44 @@ class SongController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Show the form for editing the song.
      */
-    public function show(Song $song)
+    public function edit(Song $song): Response
     {
-        //
+        $genres = Genre::all();
+        $albums = AlbumResource::collection(Album::all());
+
+        return Inertia::render('EditSong')->with([
+            'song' => $song,
+            'genres' => $genres,
+            'albums' => $albums
+        ]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Update the specified song in storage.
      */
-    public function edit(Song $song)
+    public function update(UpdateSongRequest $request, Song $song): RedirectResponse
     {
-        //
+        $validatedRequest = $request->validated();
+
+        $song->update([
+            'title' => $validatedRequest['title'],
+            'length' => $validatedRequest['length'],
+            'genre' => $validatedRequest['genre'],
+            'album_id' => $validatedRequest['album_id'],
+        ]);
+
+        return redirect()->route('dashboard');
     }
 
     /**
-     * Update the specified resource in storage.
+     * Remove the specified song from storage.
      */
-    public function update(UpdateSongRequest $request, Song $song)
+    public function destroy(Song $song): RedirectResponse
     {
-        //
-    }
+        $song->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Song $song)
-    {
-        //
+        return redirect()->route('dashboard');
     }
 }

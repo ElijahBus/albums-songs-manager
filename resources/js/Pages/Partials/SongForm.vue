@@ -1,6 +1,8 @@
 <template>
     <form @submit.prevent="submitForm" method="post"
           class="bg-white rounded px-8 pt-6 pb-8 mb-4 w-1/2 flex flex-col my-2">
+
+        <input v-if="song.id" type="hidden" name="_method" value="PUT">
         <div class=" flex flex-col items-center mb-6">
             <div class="w-full px-3 mb-6 md:mb-0">
                 <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
@@ -75,17 +77,22 @@ import {Link, useForm} from "@inertiajs/vue3";
 export default {
     name: "SongForm",
     components: {Link},
-    props: ['genres', 'albums'],
+    props: ['genres', 'albums', 'song'],
 
-    setup() {
+    setup(props) {
         const form = useForm({
-            title: '',
-            length: '',
-            genre: '',
-            album_id: null
+            title: props.song?.title,
+            length: props.song?.length,
+            genre: props.song?.genre,
+            album_id: props.song?.album_id
         });
 
         const submitForm = () => {
+            if (props.song.hasOwnProperty('id')) {
+                form.put(route('songs.update', props.song.id), {});
+                return;
+            }
+
             form.post(route('songs.store'));
         }
 
