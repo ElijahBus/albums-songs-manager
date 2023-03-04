@@ -65,17 +65,18 @@
 </template>
 
 <script>
-import {Link, useForm} from "@inertiajs/vue3";
+import {Link, router, useForm} from "@inertiajs/vue3";
 
 export default {
     name: "AlbumForm",
     components: {Link},
+    props: ['album'],
 
-    setup() {
+    setup(props) {
         const form = useForm({
-            title: '',
-            description: '',
-            release_date: null,
+            title: props.album?.title,
+            description: props.album?.description,
+            release_date: props.album?.release_date,
             cover_image: null
         });
 
@@ -84,6 +85,14 @@ export default {
         }
 
         const submitForm = () => {
+            if (props?.album?.hasOwnProperty('id')) {
+                router.post(route('albums.update', props.album.id), {
+                    ...form.data()
+                    , _method: 'put'
+                });
+                return;
+            }
+
             form.post(route('albums.store'));
         }
 

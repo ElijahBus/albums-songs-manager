@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import {Link, useForm} from "@inertiajs/vue3";
+import {Link, router, useForm} from "@inertiajs/vue3";
 
 export default {
     name: "SongForm",

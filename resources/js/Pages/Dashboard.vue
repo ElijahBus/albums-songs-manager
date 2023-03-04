@@ -139,7 +139,7 @@ export default {
         }
 
         const deleteAlbum = (id) => {
-            router.delete(route('album.destroy', id));
+            router.delete(route('albums.destroy', id));
         }
 
         return {deleteSong, deleteAlbum}

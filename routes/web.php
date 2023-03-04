@@ -35,7 +35,9 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
 */
 Route::middleware('auth')->group(function () {
 
+//    Route::post('albums/{song}', [SongController::class, 'update'])->name('albums.update-with-cover');
     Route::resource('albums', AlbumController::class);
+
     Route::resource('songs', SongController::class);
 });
 

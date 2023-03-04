@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * @method static Album create(array $array)
  * @method static Album findOrFail(mixed $album_id)
+ * @property string $cover_image
  */
 class Album extends Model
 {

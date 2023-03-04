@@ -13,7 +13,7 @@ class DashboardController extends Controller
 {
     public function index(): Response
     {
-        $albums = AlbumResource::collection(Album::all());
+        $albums = AlbumResource::collection(Album::orderBy('id', 'desc')->get());
         $genres = Genre::all();
         $songs  = Song::with('album')->orderBy('id', 'desc')->get();
 

@@ -4,6 +4,7 @@ namespace App\Services;
 
 
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class ImageProcessingService
 {
@@ -21,6 +22,17 @@ class ImageProcessingService
             abort(400, 'Attempted to store a file of wrong type');
 
         return $image->store($path, $disk);
+    }
+
+    public function deleteFile(string $pathToFile, $disk = 'public'): bool
+    {
+        $fullFilePath = $disk . $pathToFile;
+
+        if (! Storage::fileExists($fullFilePath)) return false;
+
+        Storage::delete($fullFilePath);
+
+        return true;
     }
 
 }
