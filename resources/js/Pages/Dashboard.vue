@@ -82,7 +82,7 @@
                         >
                             <td>{{ index+1 }}</td>
                             <td>{{ song.title }}</td>
-                            <td>{{ song.length }}</td>
+                            <td>{{ secondsToMinutesConverter(song.length) }}</td>
                             <td>{{ song.genre }}</td>
                             <td>{{ song?.album?.title || filtered_album }}</td>
                             <td class="flex items-center justify-evenly px-3 bg-gray-400 py-1" style="min-width: 100px;">
@@ -145,7 +145,15 @@ export default {
             router.delete(route('albums.destroy', id));
         }
 
-        return {deleteSong, deleteAlbum}
+        const secondsToMinutesConverter = (secs) => {
+            if (!secs) return;
+
+            if (secs < 60 ) return secs + ' secs';
+
+            if (secs >= 60 ) return Math.round((secs / 60))  + ' mins';
+        }
+
+        return {deleteSong, deleteAlbum, secondsToMinutesConverter}
     }
 }
 
