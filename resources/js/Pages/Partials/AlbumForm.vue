@@ -70,7 +70,6 @@
 
 <script>
 import {Link, router, useForm} from "@inertiajs/vue3";
-import P from "../../../../public/build/assets/UpdateProfileInformationForm-e3ffb33d";
 import {ref} from "vue";
 
 export default {
