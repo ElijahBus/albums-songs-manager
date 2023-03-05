@@ -21,7 +21,7 @@ class DashboardTest extends TestCase
         parent::setUp();
 
         $this->withoutVite();
-        
+
         $this->user = User::factory()->create();
     }
 
