@@ -5,24 +5,26 @@
             <div class="w-full px-3 mb-6 md:mb-0">
                 <label class=" required block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
                        for="title">
-                    Title
+                    Title (50 letters)
                 </label>
                 <input
                     class=" appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
                     id="title"
                     type="text"
+                    maxlength="50"
                     v-model="form.title"
                 >
             </div>
             <div class="w-full px-3 mt-4">
                 <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
                        for="description">
-                    Description
+                    Description (120 letters)
                 </label>
                 <input
                     class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
                     id="description"
                     type="text"
+                    maxlength="120"
                     v-model="form.description"
                 >
             </div>

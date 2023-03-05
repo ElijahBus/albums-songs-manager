@@ -7,12 +7,13 @@
             <div class="w-full px-3 mb-6 md:mb-0">
                 <label class="required block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
                        for="title">
-                    Title
+                    Title (30 letters)
                 </label>
                 <input
                     class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
                     id="title"
                     type="text"
+                    maxlength="30"
                     v-model="form.title"
                 >
             </div>
@@ -24,7 +25,8 @@
                 <input
                     class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
                     id="length"
-                    type="text"
+                    type="number"
+                    min="1"
                     v-model="form.length"
                 >
             </div>
