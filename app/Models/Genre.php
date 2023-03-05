@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @method static create(string[] $array)
+ * @property string $name
+ * @property string $description
  */
 class Genre extends Model
 {

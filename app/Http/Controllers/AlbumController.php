@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAlbumRequest;
 use App\Http\Requests\UpdateAlbumRequest;
+use App\Http\Resources\AlbumResource;
 use App\Models\Album;
+use App\Models\Genre;
+use App\Models\Song;
 use App\Services\ImageProcessingService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -57,9 +60,19 @@ class AlbumController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Album $album)
+    public function show(Album $album): Response
     {
-        //
+        $albums = AlbumResource::collection(Album::orderBy('id', 'desc')->get());
+        $genres = Genre::all();
+        $songs  = $album->songs()->get();
+
+        return Inertia::render('Dashboard')
+            ->with([
+                'albums' => $albums,
+                'genres' => $genres,
+                'songs' => $songs,
+                'filtered_album' => $album->title
+            ]);
     }
 
     /**

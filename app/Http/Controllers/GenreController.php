@@ -4,63 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSongRequest;
 use App\Http\Requests\UpdateSongRequest;
+use App\Http\Resources\AlbumResource;
+use App\Models\Album;
+use App\Models\Genre;
 use App\Models\Song;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class GenreController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display the specified genre.
      */
-    public function index()
+    public function show(Genre $genre): Response
     {
-        //
-    }
+        $albums = AlbumResource::collection(Album::orderBy('id', 'desc')->get());
+        $genres = Genre::all();
+        $songs  = Song::with('album')
+            ->orderBy('id', 'desc')
+            ->where('genre', $genre->name)
+            ->get();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreSongRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Song $song)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Song $song)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateSongRequest $request, Song $song)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Song $song)
-    {
-        //
+        return Inertia::render('Dashboard')
+            ->with([
+                'albums' => $albums,
+                'genres' => $genres,
+                'songs' => $songs,
+                'filtered_genre' => $genre->name
+            ]);
     }
 }

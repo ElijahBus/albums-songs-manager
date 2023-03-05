@@ -16,7 +16,7 @@
                         </div>
 
                         <div class="mt-3 mx-2 flex mt-10 overflow-y-scroll">
-                            <div class="album-card bg-gray-800 rounded flex flex-col items-center p-2 mr-2"
+                            <Link :href="route('albums.show', album.id)" class="album-card bg-gray-800 hover:bg-gray-900 rounded flex flex-col items-center p-2 mr-2"
                                  style="width: 250px; min-width: 250px; max-height: 180px; overflow-y: scroll;"
                                  v-for="(album, index) in albums"
                                  :key="index"
@@ -45,7 +45,7 @@
                                         </form>
                                     </div>
                                 </div>
-                            </div>
+                            </Link>
 
                         </div>
                     </div>
@@ -56,7 +56,9 @@
                     <!-- Songs -->
 
                     <div class="flex items-center justify-between">
-                        <h2 class="text-lg font-bold text-white">All Songs</h2>
+                        <h2 v-if="filtered_album" class="text-lg font-bold text-white">All Songs in the album: ' {{ filtered_album }} '</h2>
+                        <h2 v-else-if="filtered_genre" class="text-lg font-bold text-white">All Songs in the genre: ' {{ filtered_genre }} '</h2>
+                        <h2 v-else class="text-lg font-bold text-white">All Songs</h2>
 
                         <Link :href="route('songs.create')" class="bg-gray-900 py-2 px-4 rounded-full text-white">
                             Add a new song
@@ -82,7 +84,7 @@
                             <td>{{ song.title }}</td>
                             <td>{{ song.length }}</td>
                             <td>{{ song.genre }}</td>
-                            <td>{{ song.album.title }}</td>
+                            <td>{{ song?.album?.title || filtered_album }}</td>
                             <td class="flex items-center justify-evenly px-3 bg-gray-400 py-1" style="min-width: 100px;">
                                 <Link :href="route('songs.edit', song.id)" class="text-indigo-900">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 96 960 960" width="16"><path d="M180 876h44l443-443-44-44-443 443v44Zm614-486L666 262l41.823-41.823Q725 203 750.5 203.5T793 221l43 43q17 17 17 42t-16.963 41.963L794 390ZM150.327 936q-12.889 0-21.608-8.714Q120 918.571 120 905.689v-85.627Q120 814 122 809q2-5 7-10l495-495 128 128-495 495q-5 5-10.217 7-5.218 2-10.783 2h-85.673ZM645 411l-22-22 44 44-22-22Z"/></svg>
@@ -110,6 +112,7 @@
 
                     <div class="genres flex flex-col">
                         <Link
+                            :href="route('genres.show', genre.id)"
                             v-for="(genre, index) in genres"
                             :key="index"
                             class="text-gray-300 ml-3 my-1 hover:bg-gray-900 px-2"
@@ -130,7 +133,7 @@ import {Head, Link, router} from '@inertiajs/vue3';
 
 
 export default {
-    props: ['albums', 'genres', 'songs'],
+    props: ['albums', 'genres', 'songs', 'filtered_album', 'filtered_genre'],
     components: {AuthenticatedLayout, Head, Link},
 
     setup() {

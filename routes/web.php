@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GenreController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SongController;
 use Illuminate\Foundation\Application;
@@ -39,6 +40,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('albums', AlbumController::class);
 
     Route::resource('songs', SongController::class);
+
+    Route::resource('genres', GenreController::class)->only('show');
 });
 
 /*
