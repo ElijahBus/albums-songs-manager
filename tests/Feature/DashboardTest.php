@@ -19,6 +19,9 @@ class DashboardTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        $this->withoutVite();
+        
         $this->user = User::factory()->create();
     }
 
