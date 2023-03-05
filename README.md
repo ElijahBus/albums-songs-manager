@@ -40,3 +40,8 @@ it will run a MySQL container on port `3306` that you can use. otherwise just in
 ### Bonus
 
 If you decide to play around with the codes, don't worry, the `tests` have got you covered, you can run `php artisan test` at any time to make sure nothing broke.
+
+### Troubleshoot
+
+- Make sure you run `php artisan storage:link` and have the `APP_URL` set correctly in your `.env` file (http://localhost:8000) in order to be able to view the images on the after creating an album
+
