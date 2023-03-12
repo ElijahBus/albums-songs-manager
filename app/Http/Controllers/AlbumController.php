@@ -62,9 +62,15 @@ class AlbumController extends Controller
      */
     public function show(Album $album): Response
     {
-        $albums = AlbumResource::collection(Album::orderBy('id', 'desc')->get());
-        $genres = Genre::all();
-        $songs  = $album->songs()->get();
+        $albums = AlbumResource::collection(
+            Album::select('id', 'title', 'cover_image')
+                ->orderBy('id', 'desc')
+                ->paginate(Album::PAGINATION_LENGTH)
+        );
+
+        $genres = Genre::select('id', 'name')->paginate(Genre::PAGINATION_LENGTH);
+
+        $songs  = $album->songs()->paginate(Song::PAGINATION_LENGTH);
 
         return Inertia::render('Dashboard')
             ->with([

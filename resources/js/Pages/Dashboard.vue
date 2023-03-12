@@ -18,7 +18,7 @@
                         <div class="mt-3 mx-2 flex mt-10 overflow-y-scroll">
                             <Link :href="route('albums.show', album.id)" class="album-card bg-gray-800 hover:bg-gray-900 rounded flex flex-col items-center p-2 mr-2"
                                  style="width: 250px; min-width: 250px; max-height: 180px; overflow-y: scroll;"
-                                 v-for="(album, index) in albums"
+                                 v-for="(album, index) in albums?.data"
                                  :key="index"
                             >
                                 <!-- Cover image -->
@@ -77,7 +77,7 @@
                         </thead>
                         <tbody>
                         <tr class="border-b border-gray-500 bg-gray-600 text-sm"
-                            v-for="(song, index) in songs"
+                            v-for="(song, index) in songs?.data"
                             :key="index"
                         >
                             <td>{{ index+1 }}</td>
@@ -113,7 +113,7 @@
                     <div class="genres flex flex-col">
                         <Link
                             :href="route('genres.show', genre.id)"
-                            v-for="(genre, index) in genres"
+                            v-for="(genre, index) in genres?.data"
                             :key="index"
                             class="text-gray-300 ml-3 my-1 hover:bg-gray-900 px-2"
                         >{{ genre.name }}

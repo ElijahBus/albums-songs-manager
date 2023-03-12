@@ -16,6 +16,8 @@ class Song extends Model
 {
     use HasFactory;
 
+    const PAGINATION_LENGTH = 10;
+
     protected $guarded = [];
 
     public function album(): BelongsTo

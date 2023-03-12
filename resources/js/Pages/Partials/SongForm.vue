@@ -43,7 +43,7 @@
                     v-model="form.genre"
                 >
                     <option value="none" selected disabled>Select genre</option>
-                    <option v-for="(genre, index) in genres" :key="index" :value="genre.name">{{ genre.name }}</option>
+                    <option v-for="(genre, index) in genres?.data" :key="index" :value="genre.name">{{ genre.name }}</option>
                 </select>
             </div>
 
@@ -59,7 +59,7 @@
 
                 >
                     <option value="none" selected disabled>Select album</option>
-                    <option v-for="(album, index) in albums" :key="index" :value="album.id" class="Album">{{ album.title }}</option>
+                    <option v-for="(album, index) in albums?.data" :key="index" :value="album.id" class="Album">{{ album.title }}</option>
                 </select>
             </div>
 

@@ -20,8 +20,13 @@ class SongController extends Controller
      */
     public function create(): Response
     {
-        $genres = Genre::all();
-        $albums = AlbumResource::collection(Album::all());
+        $genres = Genre::select('id', 'name')->paginate(Genre::PAGINATION_LENGTH);
+
+        $albums = AlbumResource::collection(
+            Album::select('id', 'title', 'cover_image')
+                ->orderBy('id', 'desc')
+                ->paginate(Album::PAGINATION_LENGTH)
+        );
 
         return Inertia::render('CreateSong')->with([
             'genres' => $genres,
@@ -52,8 +57,13 @@ class SongController extends Controller
      */
     public function edit(Song $song): Response
     {
-        $genres = Genre::all();
-        $albums = AlbumResource::collection(Album::all());
+        $genres = Genre::select('id', 'name')->paginate(Genre::PAGINATION_LENGTH);
+
+        $albums = AlbumResource::collection(
+            Album::select('id', 'title', 'cover_image')
+                ->orderBy('id', 'desc')
+                ->paginate(Album::PAGINATION_LENGTH)
+        );
 
         return Inertia::render('EditSong')->with([
             'song' => $song,

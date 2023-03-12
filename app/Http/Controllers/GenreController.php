@@ -18,12 +18,18 @@ class GenreController extends Controller
      */
     public function show(Genre $genre): Response
     {
-        $albums = AlbumResource::collection(Album::orderBy('id', 'desc')->get());
-        $genres = Genre::all();
+        $albums = AlbumResource::collection(
+            Album::select('id', 'title', 'cover_image')
+                ->orderBy('id', 'desc')
+                ->paginate(Album::PAGINATION_LENGTH)
+        );
+
+        $genres = Genre::select('id', 'name')->paginate(Genre::PAGINATION_LENGTH);
+
         $songs  = Song::with('album')
             ->orderBy('id', 'desc')
             ->where('genre', $genre->name)
-            ->get();
+            ->paginate(Song::PAGINATION_LENGTH);
 
         return Inertia::render('Dashboard')
             ->with([
