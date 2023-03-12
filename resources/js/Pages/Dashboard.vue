@@ -103,6 +103,8 @@
                         </tbody>
                     </table>
 
+                    <pagination class="mt-6" :links="songs.links" />
+
                 </div>
 
 
@@ -131,10 +133,11 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head, Link, router} from '@inertiajs/vue3';
 
+import Pagination from "@/Components/Pagination.vue";
 
 export default {
     props: ['albums', 'genres', 'songs', 'filtered_album', 'filtered_genre'],
-    components: {AuthenticatedLayout, Head, Link},
+    components: {AuthenticatedLayout, Head, Link, Pagination},
 
     setup() {
         const deleteSong = (id) => {
